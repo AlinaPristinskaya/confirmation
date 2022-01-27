@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="content _container">
-      <div v-if="error">
+      <div v-if="!error">
         <el-alert
           class="alert"
           title="Помилка"
@@ -103,7 +103,7 @@ export default {
       key: "D3C6D997-8CBE-42CA-81FC-EE56DA3F4418",
       uid: this.$route.params.uid,
       func: "checkUID",
-      status: "1",
+      status: null,
       dataClient: null,
       error: false,
       choice: false,
