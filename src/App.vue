@@ -18,7 +18,7 @@ export default {
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  height: 100vh;
   font-size: 20px;
   font-weight: 600;
 }

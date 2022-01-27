@@ -13,21 +13,25 @@
           >
           </el-button>
         </div>
-        <div class="back">
+        <div v-if="dataClient" class="back">
           <p>Номер замовлення:</p>
-          <p>141</p>
+          <p>{{ dataClient.number }}</p>
           <br />
-          <p>15:00 21.01.2022p</p>
-          <p>300 м<sup>3</sup> по 100 м<sup>3</sup>/год</p>
+          <p>{{ dataClient.deliveryDateTime }}</p>
+          <p>{{ dataClient.prod_name }}</p>
+          <p>
+            {{ dataClient.volume }} м<sup>3</sup> по
+            {{ dataClient.product_speed }} м<sup>3</sup>/год
+          </p>
         </div>
       </div>
     </div>
     <div class="content _container">
-      <div v-if="!error">
+      <div v-if="error">
         <el-alert
           class="alert"
           title="Ошибка"
-          description=" uid незнайдено, ответ succeses:false"
+          description="uid незнайдено, відповідь success:false"
           type="error"
           effect="dark"
           v-bind:show-icon="true"
@@ -44,7 +48,7 @@
         >
         </el-alert>
       </div>
-      <div class="content" v-if="error && !choice">
+      <div class="content" v-if="!error && !choice">
         <form @submit="submit">
           <div>
             <label for="one" class="label">
@@ -58,19 +62,6 @@
               Підтвердити*
             </label>
             <br />
-
-            <!-- <label for="two" class="label">
-            <input
-              type="radio"
-              id="two"
-              value="2"
-              v-model="status"
-              class="radioBtn"
-            /><span class="icon"></span>
-            Скасувати
-          </label>
-          <br /> -->
-
             <label for="three" class="label">
               <input
                 type="radio"
@@ -113,28 +104,69 @@ export default {
       uid: this.$route.params.uid,
       func: "checkUID",
       status: "1",
-      error: "false",
-      choice: "false",
+      dataClient: null,
+      error: false,
+      choice: false,
       telephone: "(044) 501-11-88",
       email: "client@kovalska.com",
     };
   },
   async created() {
-    this.choice = false; //Эту строку надо удалить
-    const { data } = await api.fetchTrackingInfo(
-      this.key,
-      "checkUID",
-      this.uid
-    );
-    if (data.success === false) {
-      this.error = true;
-    }
+    this.getDataClient();
   },
 
   methods: {
+    async getDataClient() {
+      if (!this.uid) {
+        this.error = true;
+      }
+      // this.choice = false; //Эту строку надо удалить
+      await api
+        .fetchTrackingInfo(this.key, "checkUID", this.uid)
+        .then((resp) => {
+          console.log("resp", resp.data);
+          if (resp.data.success === false) {
+            this.error = true;
+          } else {
+            this.dataClient = resp.data.data[0];
+            //тест
+            // this.dataClient = {
+            //   number: "1x1",
+            //   deliveryDateTime: "11:18 27.01.2022",
+            //   prod_name: "Смесь1",
+            //   volume: "23.00",
+            //   product_speed: "0.00",
+            // };
+            console.log("dataClient", this.dataClient);
+          }
+        });
+
+      // if (data.success === false) {
+      //   this.error = true;
+      // }
+    },
+
     submit() {
-      api.fetchTrackingInfo(this.key, "confirm", this.uid, this.status);
-      this.choice = true;
+      api
+        .fetchTrackingInfo(this.key, "confirm", this.uid, this.status)
+        .then((resp) => {
+          if (!resp.data.success) {
+            this.$message({
+              message: `Замовлення недоступне для підтвердження`,
+              type: "warning",
+            });
+          } else {
+            this.choice = true;
+            return;
+          }
+        })
+        .catch((e) => {
+          this.$message({
+            message: `Помилка відправлення відповіді`,
+            type: "warning",
+          });
+          console.log("e", e);
+        });
     },
     open() {
       this.$alert(
@@ -168,11 +200,15 @@ export default {
 }
 .main {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .header {
   display: flex;
   background: $bg;
   justify-content: space-between;
+  width: 100%;
   margin-bottom: 50px;
 }
 .back {
@@ -192,6 +228,7 @@ export default {
   color: black;
   padding: 0 20px;
   margin: 0 auto;
+  flex: 1 1 100%;
 }
 .radioBtn {
   margin: 5px 10px;
@@ -231,11 +268,9 @@ export default {
   transform: translate(-50%, 0);
 }
 .footer {
-  position: absolute;
-  bottom: 10px;
   font-size: 14px;
-  right: 0;
   padding: 10px;
   width: 60%;
+  align-self: flex-end;
 }
 </style>
