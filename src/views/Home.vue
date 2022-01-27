@@ -20,8 +20,10 @@
           <p>{{ dataClient.deliveryDateTime }}</p>
           <p>{{ dataClient.prod_name }}</p>
           <p>
-            {{ dataClient.volume }} м<sup>3</sup> по
-            {{ dataClient.product_speed }} м<sup>3</sup>/год
+            {{ dataClient.volume }} м<sup>3</sup>
+            <span v-if="+dataClient.product_speed">
+              по {{ dataClient.product_speed }} м<sup>3</sup>/год
+            </span>
           </p>
         </div>
       </div>
@@ -113,6 +115,7 @@ export default {
   },
   async created() {
     this.getDataClient();
+    console.log("dataClient", typeof this.dataClient.product_speed);
   },
 
   methods: {
@@ -123,10 +126,17 @@ export default {
       await api
         .fetchTrackingInfo(this.key, "checkUID", this.uid)
         .then((resp) => {
-          console.log("resp", resp.data);
           if (resp.data.success === false || resp.data.data.length === 0) {
             this.error = true;
           } else {
+            //тест
+            // this.dataClient = {
+            //   number: "1x1",
+            //   deliveryDateTime: "11:18 27.01.2022",
+            //   prod_name: "Смесь1",
+            //   volume: "23.00",
+            //   product_speed: "0.00",
+            // };
             this.dataClient = resp.data.data[0];
           }
         })
@@ -137,10 +147,6 @@ export default {
           });
           console.log("e", e);
         });
-
-      // if (data.success === false) {
-      //   this.error = true;
-      // }
     },
 
     submit() {
