@@ -33,7 +33,7 @@
         <el-alert
           class="alert"
           title="Помилка"
-          description="uid незнайдено, відповідь success:false"
+          description="uid не знайдено, відповідь success:false"
           type="error"
           effect="dark"
           v-bind:show-icon="true"
@@ -209,7 +209,7 @@ export default {
 }
 .header {
   display: flex;
-  background: $bg;
+  background: red;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 50px;
@@ -224,7 +224,7 @@ export default {
   text-align: right;
   vertical-align: super;
   @media (max-width: 400px) {
-    font-size: 12px;
+    font-size: 10px;
     padding: 5px;
   }
 }

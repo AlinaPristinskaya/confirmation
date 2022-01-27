@@ -1,12 +1,20 @@
 <template>
   <div class="logo">
-    <img src="../assets/img.svg" alt="Vue Logo" class="img" />
+    <el-image
+      style="max-height: 133px; height: 100%; object-fit: cover"
+      :src="url"
+      fit="fit"
+      class="img"
+    ></el-image>
   </div>
 </template>
 
 <script>
 export default {
   name: "Logo",
+  data: () => ({
+    url: require("../assets/img.svg"),
+  }),
 };
 </script>
 
@@ -15,14 +23,15 @@ export default {
   padding: 0;
   margin: 0;
   align-items: flex-start;
+  background-color: white;
 }
 .img {
   display: block;
   background: white;
 
   @media (max-width: 400px) {
-    height: 70px;
-    width: 70px;
+    height: 100px;
+    width: 100px;
   }
 }
 </style>
