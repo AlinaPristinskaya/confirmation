@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="content _container">
-      <div v-if="!error">
+      <div v-if="error">
         <el-alert
           class="alert"
           title="Помилка"
@@ -73,9 +73,9 @@
               Зателефонуйте мені
             </label>
             <br />
-            <button @click.prevent="submit" type="submit" class="btn">
+            <el-button @click.prevent="submit" type="submit" class="btn">
               Відправити
-            </button>
+            </el-button>
           </div>
         </form>
       </div>
@@ -103,7 +103,7 @@ export default {
       key: "D3C6D997-8CBE-42CA-81FC-EE56DA3F4418",
       uid: this.$route.params.uid,
       func: "checkUID",
-      status: null,
+      status: "1",
       dataClient: null,
       error: false,
       choice: false,
@@ -243,7 +243,8 @@ export default {
   border-radius: 20px;
   margin-right: 5px;
   margin-left: -20px;
-  border: 4px solid red;
+  border: 4px solid;
+  border-color: red;
 }
 .radioBtn:checked + .icon {
   background-color: white;
@@ -261,12 +262,7 @@ export default {
   display: inline-block;
   background: red;
   color: white;
-  padding: 8px 8px;
-  border-radius: 6px;
-  border: none;
-  font-size: 20px;
   margin-top: 40px;
-  text-align: center;
   left: 50%;
   transform: translate(-50%, 0);
 }
