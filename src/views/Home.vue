@@ -2,7 +2,7 @@
   <div class="main">
     <div class="header">
       <Logo />
-      <div class="_container">
+      <div class="header__content _container">
         <div class="phone">
           <el-button
             icon="el-icon-phone"
@@ -30,7 +30,7 @@
       <div v-if="error">
         <el-alert
           class="alert"
-          title="Ошибка"
+          title="Помилка"
           description="uid незнайдено, відповідь success:false"
           type="error"
           effect="dark"
@@ -120,25 +120,22 @@ export default {
       if (!this.uid) {
         this.error = true;
       }
-      // this.choice = false; //Эту строку надо удалить
       await api
         .fetchTrackingInfo(this.key, "checkUID", this.uid)
         .then((resp) => {
           console.log("resp", resp.data);
-          if (resp.data.success === false) {
+          if (resp.data.success === false || resp.data.data.length === 0) {
             this.error = true;
           } else {
             this.dataClient = resp.data.data[0];
-            //тест
-            // this.dataClient = {
-            //   number: "1x1",
-            //   deliveryDateTime: "11:18 27.01.2022",
-            //   prod_name: "Смесь1",
-            //   volume: "23.00",
-            //   product_speed: "0.00",
-            // };
-            console.log("dataClient", this.dataClient);
           }
+        })
+        .catch((e) => {
+          this.$message({
+            message: `Помилка відправлення відповіді`,
+            type: "warning",
+          });
+          console.log("e", e);
         });
 
       // if (data.success === false) {
@@ -210,6 +207,9 @@ export default {
   justify-content: space-between;
   width: 100%;
   margin-bottom: 50px;
+  &__content {
+    padding: 0 10px;
+  }
 }
 .back {
   color: #fff;
@@ -252,6 +252,10 @@ export default {
 .label {
   display: block;
   padding-left: 20px;
+  white-space: nowrap;
+  @media (max-width: 570px) {
+    font-size: 14px;
+  }
 }
 .btn {
   position: relative;
