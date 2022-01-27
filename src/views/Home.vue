@@ -243,8 +243,7 @@ export default {
   border-radius: 20px;
   margin-right: 5px;
   margin-left: -20px;
-  border: 4px solid;
-  border-color: red;
+  border: 4px solid red;
 }
 .radioBtn:checked + .icon {
   background-color: white;
