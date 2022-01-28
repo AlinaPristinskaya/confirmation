@@ -227,7 +227,7 @@ export default {
 }
 .header {
   display: flex;
-  background: red;
+  background: $--color-header;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 50px;
@@ -289,7 +289,7 @@ export default {
 .btn {
   position: relative;
   display: inline-block;
-  background: red;
+  background: $--color-header;
   color: white;
   margin-top: 40px;
   left: 50%;
@@ -318,7 +318,7 @@ export default {
   height: 1em;
   flex-shrink: 0;
   flex-grow: 0;
-  border: 4px solid red;
+  border: 4px solid $--color-header;
   border-radius: 25px;
   margin-right: 0.5em;
   background-repeat: no-repeat;
@@ -326,8 +326,8 @@ export default {
   background-size: 50% 50%;
 }
 .custom-checkbox:checked + label::before {
-  border-color: red;
-  background-color: red;
+  border-color: $--color-header;
+  background-color: $--color-header;
 }
 .labelNew {
   display: block;
