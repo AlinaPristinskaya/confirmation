@@ -1,11 +1,6 @@
 <template>
   <div class="logo">
-    <el-image
-      style="object-fit: cover"
-      :src="url"
-      fit="fit"
-      class="img"
-    ></el-image>
+    <el-image :src="url" fit="fit" class="img"></el-image>
   </div>
 </template>
 
@@ -13,7 +8,7 @@
 export default {
   name: "Logo",
   data: () => ({
-    url: require("../assets/img.svg"),
+    url: require("../assets/img.png"),
   }),
 };
 </script>
