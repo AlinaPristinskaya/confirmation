@@ -300,6 +300,7 @@ export default {
   flex-shrink: 0;
   flex-grow: 0;
   border: 4px solid $--color-header;
+  background: $--color-header;
   border-radius: 25px;
   margin-right: 0.5em;
   background-repeat: no-repeat;
@@ -308,7 +309,7 @@ export default {
 }
 .custom-checkbox:checked + label::before {
   border-color: $--color-header;
-  background-color: $--color-header;
+  background-color: $--color-white;
 }
 .labelNew {
   display: block;
