@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <el-image
-      style="max-height: 133px; height: 100%; object-fit: cover"
+      style="object-fit: cover"
       :src="url"
       fit="fit"
       class="img"
@@ -22,16 +22,15 @@ export default {
 .logo {
   padding: 0;
   margin: 0;
-  align-items: flex-start;
-  background-color: white;
+  align-self: center;
 }
 .img {
   display: block;
   background: white;
 
   @media (max-width: 400px) {
-    height: 100px;
-    width: 100px;
+    /*height: 100px;*/
+    /*width: 100px;*/
   }
 }
 </style>

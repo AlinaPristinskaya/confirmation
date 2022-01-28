@@ -214,18 +214,20 @@ export default {
   width: 100%;
   margin-bottom: 50px;
   &__content {
-    padding: 0 10px;
+    padding-right: 20px;
   }
 }
 .back {
   color: #fff;
   font-size: 16px;
-  padding: 20px;
+  padding: 10px 0px 10px 0;
   text-align: right;
   vertical-align: super;
-  @media (max-width: 400px) {
-    font-size: 10px;
-    padding: 5px;
+  white-space: nowrap;
+  margin: auto;
+  @media (max-width: 500px) {
+    font-size: 12px;
+    padding: 5px 0px 5px 0;
   }
 }
 .content {
