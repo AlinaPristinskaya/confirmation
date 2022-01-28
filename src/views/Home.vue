@@ -50,7 +50,7 @@
         >
         </el-alert>
       </div>
-      <div class="content" v-if="error && !choice">
+      <div class="content" v-if="!error && !choice">
         <form @submit="submit">
           <div>
             <!--  <label for="one" class="label">
