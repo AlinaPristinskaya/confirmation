@@ -112,9 +112,8 @@ export default {
       email: "client@kovalska.com",
     };
   },
-  async created() {
+  created() {
     this.getDataClient();
-    console.log("dataClient", typeof this.dataClient.product_speed);
   },
 
   methods: {
