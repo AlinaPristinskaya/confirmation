@@ -279,7 +279,10 @@ export default {
   font-size: 14px;
   padding: 10px;
   width: 60%;
+  line-height: 16px;
   align-self: flex-end;
+  /*margin-top: auto;*/
+  /*margin-bottom: auto;*/
 }
 .custom-checkbox {
   position: absolute;
@@ -299,7 +302,7 @@ export default {
   flex-shrink: 0;
   flex-grow: 0;
   border: 4px solid $--color-header;
-  background: $--color-header;
+  background-color: $--color-header;
   border-radius: 25px;
   margin-right: 0.5em;
   background-repeat: no-repeat;

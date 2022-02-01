@@ -1,5 +1,6 @@
 import axios from "axios";
-axios.defaults.baseURL = process.env.VUE_APP_HTTP;
+// eslint-disable-next-line no-undef
+axios.defaults.baseURL = settings.url;
 export default {
   fetchTrackingInfo(key, func, uid, status) {
     return axios.get(`index.php`, {
