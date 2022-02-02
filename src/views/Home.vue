@@ -27,55 +27,26 @@
         >
         </el-alert>
       </div>
-      <div class="content" v-if="!error && !choice && !loading">
-        <form @submit="submit">
-          <div>
-            <input
-              v-model="status"
-              type="radio"
-              class="custom-checkbox"
-              id="happy1"
-              name="happy"
-              value="1"
-            />
-            <label for="happy1" class="labelNew">Підтвердити*</label>
-            <br />
-            <input
-              v-model="status"
-              type="radio"
-              class="custom-checkbox"
-              id="happy2"
-              name="happy"
-              value="2"
-            />
-            <label for="happy2" class="labelNew">Зателефонуйте мені</label>
-
-            <br />
-            <el-button @click.prevent="submit" type="submit" class="btn">
-              Відправити
-            </el-button>
-          </div>
-        </form>
+      <div class="content" v-if="error && !choice && !loading">
+        <Form @submit="submit" />
       </div>
     </div>
-    <div class="footer _container">
-      <p>
-        *Oчікуйте на додаткове повідомлення, коли відвантаження розпочнеться.
-        Читайте, переходьте за посиланням та натискайте на міксер, щоб завжди
-        мати актуальну інформацію про деталі кожної доставки!
-      </p>
-    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import api from "../api/api";
 import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
+import Form from "../components/Form.vue";
 
 export default {
   name: "Home",
   components: {
     Header,
+    Footer,
+    Form,
   },
 
   data() {
@@ -85,13 +56,7 @@ export default {
       uid: this.$route.params.uid,
       func: "checkUID",
       status: "1",
-      dataClient: {
-        number: "1x1",
-        deliveryDateTime: "11:18 27.01.2022",
-        prod_name: "Смесь1",
-        volume: "23.00",
-        product_speed: "0.00",
-      },
+      dataClient: null,
       error: false,
       choice: false,
       telephone: "(044) 501-11-88",
@@ -137,7 +102,8 @@ export default {
       }
     },
 
-    submit() {
+    submit({ status }) {
+      this.status = status;
       api
         .fetchTrackingInfo(this.key, "confirm", this.uid, this.status)
         .then((resp) => {
@@ -183,9 +149,6 @@ export default {
   padding: 0 20px;
   margin: 0 auto;
   flex: 1 1 100%;
-  & .labelNew:not(:last-child) {
-    padding-top: 30px;
-  }
 }
 .btn {
   position: relative;
