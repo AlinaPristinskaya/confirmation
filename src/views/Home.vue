@@ -29,7 +29,9 @@
       </div>
     </div>
     <div class="content _container">
-      <div v-if="loading" v-loading="loading"></div>
+      <div v-if="loading" v-loading="loading">
+        <element-loading-spinner></element-loading-spinner>
+      </div>
 
       <div v-if="error && !loading">
         <el-alert
@@ -128,7 +130,7 @@ export default {
         await api
           .fetchTrackingInfo(this.key, "checkUID", this.uid)
           .then((resp) => {
-            this.loading = false;
+            //this.loading = false;
             if (resp.data.success === false || resp.data.data.length === 0) {
               this.error = true;
             } else {

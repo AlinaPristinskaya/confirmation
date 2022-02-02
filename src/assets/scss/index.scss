@@ -72,11 +72,11 @@
     stroke: red;
   }
   .content {
-  & .el-loading-parent--relative {
-   display: flex;
-   flex-direction: column;
-   color: black;
-   padding: 0 20px;
-   flex: 1 1 100%;
-  }
- }
+    & .el-loading-parent--relative {
+     display: flex;
+     flex-direction: column;
+     color: black;
+     padding: 0 20px;
+     flex: 1 1 100%;
+    }
+   }
