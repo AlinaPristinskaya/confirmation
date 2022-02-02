@@ -6,6 +6,9 @@ import VueAxios from "vue-axios";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import "@/assets/scss/index.scss";
+import { BSpinner } from "bootstrap-vue";
+
+Vue.component("b-spinner", BSpinner);
 
 Vue.use(ElementUI);
 

@@ -29,7 +29,9 @@
       </div>
     </div>
     <div class="content _container">
-      <div v-if="error">
+      <div v-if="loading" v-loading="loading"></div>
+
+      <div v-if="error && !loading">
         <el-alert
           class="alert"
           title="Помилка"
@@ -50,7 +52,7 @@
         >
         </el-alert>
       </div>
-      <div class="content" v-if="!error && !choice">
+      <div class="content" v-if="!error && !choice && !loading">
         <form @submit="submit">
           <div>
             <input
@@ -110,6 +112,7 @@ export default {
       choice: false,
       telephone: "(044) 501-11-88",
       email: "client@kovalska.com",
+      loading: false,
     };
   },
   created() {
@@ -120,31 +123,34 @@ export default {
     async getDataClient() {
       if (!this.uid) {
         this.error = true;
-      }
-      await api
-        .fetchTrackingInfo(this.key, "checkUID", this.uid)
-        .then((resp) => {
-          if (resp.data.success === false || resp.data.data.length === 0) {
-            this.error = true;
-          } else {
-            //тест
-            // this.dataClient = {
-            //   number: "1x1",
-            //   deliveryDateTime: "11:18 27.01.2022",
-            //   prod_name: "Смесь1",
-            //   volume: "23.00",
-            //   product_speed: "0.00",
-            // };
-            this.dataClient = resp.data.data[0];
-          }
-        })
-        .catch((e) => {
-          this.$message({
-            message: `Помилка відправлення відповіді`,
-            type: "warning",
+      } else {
+        this.loading = true;
+        await api
+          .fetchTrackingInfo(this.key, "checkUID", this.uid)
+          .then((resp) => {
+            this.loading = false;
+            if (resp.data.success === false || resp.data.data.length === 0) {
+              this.error = true;
+            } else {
+              //тест
+              // this.dataClient = {
+              //   number: "1x1",
+              //   deliveryDateTime: "11:18 27.01.2022",
+              //   prod_name: "Смесь1",
+              //   volume: "23.00",
+              //   product_speed: "0.00",
+              // };
+              this.dataClient = resp.data.data[0];
+            }
+          })
+          .catch((e) => {
+            this.$message({
+              message: `Помилка відправлення відповіді`,
+              type: "warning",
+            });
+            console.log("e", e);
           });
-          console.log("e", e);
-        });
+      }
     },
 
     submit() {
@@ -239,33 +245,6 @@ export default {
     padding-top: 30px;
   }
 }
-/* .radioBtn {
-  margin: 5px 10px;
-  appearance: none;
-}
-.icon {
-  content: "";
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  background-color: red;
-  border-radius: 20px;
-  margin-right: 5px;
-  margin-left: -20px;
-  border: 4px solid;
-  border-color: red;
-}
-.radioBtn:checked + .icon {
-  background-color: white;
-}
-.label {
-  display: block;
-  padding-left: 20px;
-  white-space: nowrap;
-  @media (max-width: 570px) {
-    font-size: 14px;
-  }
-} */
 .btn {
   position: relative;
   display: inline-block;
@@ -281,8 +260,6 @@ export default {
   width: 60%;
   line-height: 16px;
   align-self: flex-end;
-  /*margin-top: auto;*/
-  /*margin-bottom: auto;*/
 }
 .custom-checkbox {
   position: absolute;

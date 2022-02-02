@@ -13,7 +13,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "./assets/scss/_mixin.scss";
-@import "./assets/scss/_variables.scss";
+
 #app {
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
