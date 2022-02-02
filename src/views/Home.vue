@@ -130,7 +130,7 @@ export default {
         await api
           .fetchTrackingInfo(this.key, "checkUID", this.uid)
           .then((resp) => {
-            //this.loading = false;
+            this.loading = false;
             if (resp.data.success === false || resp.data.data.length === 0) {
               this.error = true;
             } else {
@@ -181,12 +181,12 @@ export default {
       this.$alert(
         `<strong> <a href="tel: +38${this.telephone}" class="tell"><i class="el-icon-phone"></i>${this.telephone}</a></strong>\n
                  <strong><a href="mailto:${this.email}" class="mail"><i class="el-icon-message"></i>${this.email}</a></strong>`,
-        "Контакты",
+        "Контакти",
         {
           dangerouslyUseHTMLString: true,
           distinguishCancelAndClose: true,
           showConfirmButton: false,
-          cancelButtonText: "Отмена",
+          cancelButtonText: "Відмінити",
           showClose: true,
           showCancelButton: true,
           closeOnClickModal: true,
