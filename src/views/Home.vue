@@ -204,7 +204,7 @@ export default {
   align-self: center;
 }
 .alert {
-  padding: 10px;
+  padding: 20px;
   width: 100%;
 }
 .main {
